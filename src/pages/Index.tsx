@@ -21,9 +21,9 @@ const Index = () => {
     const dayOfWeek = date.getDay(); // 0 = Domingo, 1 = Segunda, etc.
     
     switch (dayOfWeek) {
-      case 0: // Domingo
-      case 3: // Quarta
-        return []; // Fechado
+      case 0: // Domingo - Fechado
+      case 3: // Quarta - Fechado
+        return [];
       case 1: // Segunda (08:30 às 18:00)
         return [
           "08:30", "09:10", "09:50", "10:30", "11:10", "11:50",
@@ -56,8 +56,7 @@ const Index = () => {
     if (dayOfWeek === 0 || dayOfWeek === 3) {
       return "Fechado";
     }
-    const times = getAvailableTimesForDate(date);
-    return times.length > 0 ? "Aberto" : "Fechado";
+    return "Aberto";
   };
 
   const handleSchedule = () => {
@@ -118,14 +117,14 @@ Aguardo confirmação!`;
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-zinc-900 via-zinc-800 to-slate-900">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900">
       {/* Header */}
       <div className="bg-black/50 backdrop-blur-sm border-b border-slate-700/50">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-center space-x-3">
-            <Scissors className="h-8 w-8 text-slate-400" />
+            <Scissors className="h-8 w-8 text-blue-400" />
             <h1 className="text-3xl font-bold text-white">Eduardoo Barber</h1>
-            <Scissors className="h-8 w-8 text-slate-400 scale-x-[-1]" />
+            <Scissors className="h-8 w-8 text-blue-400 scale-x-[-1]" />
           </div>
           <p className="text-center text-slate-300 mt-2">Agendamento Online</p>
         </div>
@@ -133,10 +132,10 @@ Aguardo confirmação!`;
 
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
-          <Card className="bg-zinc-900/90 backdrop-blur-sm border-slate-700/50 shadow-2xl">
+          <Card className="bg-slate-900/90 backdrop-blur-sm border-slate-700/50 shadow-2xl">
             <CardHeader className="text-center">
               <CardTitle className="text-2xl text-white flex items-center justify-center gap-2">
-                <Calendar className="h-6 w-6 text-slate-400" />
+                <Calendar className="h-6 w-6 text-blue-400" />
                 Agende seu Horário
               </CardTitle>
               <p className="text-slate-300">Preencha os dados abaixo para agendar seu corte</p>
@@ -148,7 +147,7 @@ Aguardo confirmação!`;
                 <div className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="name" className="text-white flex items-center gap-2">
-                      <User className="h-4 w-4 text-slate-400" />
+                      <User className="h-4 w-4 text-blue-400" />
                       Nome Completo
                     </Label>
                     <Input
@@ -156,13 +155,13 @@ Aguardo confirmação!`;
                       value={clientName}
                       onChange={(e) => setClientName(e.target.value)}
                       placeholder="Digite seu nome completo"
-                      className="bg-zinc-800 border-slate-600 text-white placeholder:text-slate-400 focus:border-slate-400"
+                      className="bg-slate-800 border-slate-600 text-white placeholder:text-slate-400 focus:border-blue-400"
                     />
                   </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="phone" className="text-white flex items-center gap-2">
-                      <Phone className="h-4 w-4 text-slate-400" />
+                      <Phone className="h-4 w-4 text-blue-400" />
                       Telefone (WhatsApp)
                     </Label>
                     <Input
@@ -170,14 +169,14 @@ Aguardo confirmação!`;
                       value={phoneNumber}
                       onChange={(e) => setPhoneNumber(e.target.value)}
                       placeholder="(11) 99999-9999"
-                      className="bg-zinc-800 border-slate-600 text-white placeholder:text-slate-400 focus:border-slate-400"
+                      className="bg-slate-800 border-slate-600 text-white placeholder:text-slate-400 focus:border-blue-400"
                     />
                   </div>
 
                   {/* Horários Disponíveis */}
                   <div className="space-y-2">
                     <Label className="text-white flex items-center gap-2">
-                      <Clock className="h-4 w-4 text-slate-400" />
+                      <Clock className="h-4 w-4 text-blue-400" />
                       Horários Disponíveis
                       {selectedDate && (
                         <span className="text-sm text-slate-300">
@@ -198,8 +197,8 @@ Aguardo confirmação!`;
                             onClick={() => setSelectedTime(time)}
                             className={`text-sm ${
                               selectedTime === time
-                                ? "bg-slate-700 hover:bg-slate-600 text-white border-slate-500"
-                                : "bg-zinc-800 hover:bg-zinc-700 text-white border-slate-600 hover:border-slate-500"
+                                ? "bg-blue-700 hover:bg-blue-600 text-white border-blue-500"
+                                : "bg-slate-800 hover:bg-slate-700 text-white border-slate-600 hover:border-blue-500"
                             }`}
                           >
                             {time}
@@ -213,7 +212,7 @@ Aguardo confirmação!`;
                 {/* Calendário */}
                 <div className="space-y-4">
                   <Label className="text-white flex items-center gap-2">
-                    <CalendarIcon className="h-4 w-4 text-slate-400" />
+                    <CalendarIcon className="h-4 w-4 text-blue-400" />
                     Selecione a Data
                   </Label>
                   <div className="flex justify-center">
@@ -227,10 +226,11 @@ Aguardo confirmação!`;
                       disabled={(date) => {
                         const today = new Date();
                         today.setHours(0, 0, 0, 0);
-                        return date < today || date.getDay() === 0 || date.getDay() === 3; // Desabilita datas passadas, domingos e quartas
+                        const dayOfWeek = date.getDay();
+                        return date < today || dayOfWeek === 0 || dayOfWeek === 3; // Desabilita datas passadas, domingos e quartas
                       }}
                       locale={ptBR}
-                      className="rounded-lg border border-slate-600 bg-zinc-800 text-white"
+                      className="rounded-lg border border-slate-600 bg-slate-800 text-white"
                       classNames={{
                         months: "flex w-full flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0 flex-1",
                         month: "space-y-4 w-full flex flex-col",
@@ -246,7 +246,7 @@ Aguardo confirmação!`;
                         row: "flex w-full mt-2",
                         cell: "relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected].day-range-end)]:rounded-r-md",
                         day: "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-slate-700 hover:text-accent-foreground h-8 w-8 p-0 font-normal aria-selected:opacity-100 text-white",
-                        day_selected: "bg-slate-600 text-white hover:bg-slate-500 hover:text-white focus:bg-slate-600 focus:text-white",
+                        day_selected: "bg-blue-600 text-white hover:bg-blue-500 hover:text-white focus:bg-blue-600 focus:text-white",
                         day_today: "bg-slate-700/50 text-slate-200",
                         day_outside: "day-outside text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30",
                         day_disabled: "text-muted-foreground opacity-50",
@@ -260,7 +260,7 @@ Aguardo confirmação!`;
 
               {/* Resumo do Agendamento */}
               {(clientName || phoneNumber || selectedDate || selectedTime) && (
-                <Card className="bg-zinc-800/50 border-slate-600">
+                <Card className="bg-slate-800/50 border-slate-600">
                   <CardHeader>
                     <CardTitle className="text-lg text-slate-300">Resumo do Agendamento</CardTitle>
                   </CardHeader>
@@ -279,7 +279,7 @@ Aguardo confirmação!`;
               <Button 
                 onClick={handleSchedule}
                 disabled={!clientName || !phoneNumber || !selectedDate || !selectedTime || availableTimes.length === 0}
-                className="w-full bg-slate-700 hover:bg-slate-600 text-white font-semibold py-3 text-lg shadow-lg transition-all duration-200 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-blue-700 hover:bg-blue-600 text-white font-semibold py-3 text-lg shadow-lg transition-all duration-200 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                 size="lg"
               >
                 <MessageSquare className="h-5 w-5 mr-2" />
@@ -291,7 +291,7 @@ Aguardo confirmação!`;
               </p>
 
               {/* Horários de Funcionamento */}
-              <Card className="bg-zinc-800/30 border-slate-600">
+              <Card className="bg-slate-800/30 border-slate-600">
                 <CardHeader>
                   <CardTitle className="text-lg text-slate-300">Horários de Funcionamento</CardTitle>
                 </CardHeader>
