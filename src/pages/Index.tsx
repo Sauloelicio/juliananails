@@ -70,28 +70,28 @@ Aguardo confirmação!`;
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-zinc-900 via-zinc-800 to-amber-900">
+    <div className="min-h-screen bg-gradient-to-br from-zinc-900 via-zinc-800 to-blue-900">
       {/* Header */}
-      <div className="bg-black/50 backdrop-blur-sm border-b border-amber-500/20">
+      <div className="bg-black/50 backdrop-blur-sm border-b border-blue-500/20">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-center space-x-3">
-            <Scissors className="h-8 w-8 text-amber-400" />
+            <Scissors className="h-8 w-8 text-blue-400" />
             <h1 className="text-3xl font-bold text-white">Eduardoo Barber</h1>
-            <Scissors className="h-8 w-8 text-amber-400 scale-x-[-1]" />
+            <Scissors className="h-8 w-8 text-blue-400 scale-x-[-1]" />
           </div>
-          <p className="text-center text-amber-200 mt-2">Agendamento Online</p>
+          <p className="text-center text-blue-200 mt-2">Agendamento Online</p>
         </div>
       </div>
 
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
-          <Card className="bg-zinc-900/80 backdrop-blur-sm border-amber-500/20 shadow-2xl">
+          <Card className="bg-zinc-900/80 backdrop-blur-sm border-blue-500/20 shadow-2xl">
             <CardHeader className="text-center">
               <CardTitle className="text-2xl text-white flex items-center justify-center gap-2">
-                <Calendar className="h-6 w-6 text-amber-400" />
+                <Calendar className="h-6 w-6 text-blue-400" />
                 Agende seu Horário
               </CardTitle>
-              <p className="text-amber-200">Preencha os dados abaixo para agendar seu corte</p>
+              <p className="text-blue-200">Preencha os dados abaixo para agendar seu corte</p>
             </CardHeader>
             
             <CardContent className="space-y-6">
@@ -100,7 +100,7 @@ Aguardo confirmação!`;
                 <div className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="name" className="text-white flex items-center gap-2">
-                      <User className="h-4 w-4 text-amber-400" />
+                      <User className="h-4 w-4 text-blue-400" />
                       Nome Completo
                     </Label>
                     <Input
@@ -108,13 +108,13 @@ Aguardo confirmação!`;
                       value={clientName}
                       onChange={(e) => setClientName(e.target.value)}
                       placeholder="Digite seu nome completo"
-                      className="bg-zinc-800 border-amber-500/30 text-white placeholder:text-zinc-400 focus:border-amber-400"
+                      className="bg-zinc-800 border-blue-500/30 text-white placeholder:text-zinc-400 focus:border-blue-400"
                     />
                   </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="phone" className="text-white flex items-center gap-2">
-                      <Phone className="h-4 w-4 text-amber-400" />
+                      <Phone className="h-4 w-4 text-blue-400" />
                       Telefone (WhatsApp)
                     </Label>
                     <Input
@@ -122,14 +122,14 @@ Aguardo confirmação!`;
                       value={phoneNumber}
                       onChange={(e) => setPhoneNumber(e.target.value)}
                       placeholder="(11) 99999-9999"
-                      className="bg-zinc-800 border-amber-500/30 text-white placeholder:text-zinc-400 focus:border-amber-400"
+                      className="bg-zinc-800 border-blue-500/30 text-white placeholder:text-zinc-400 focus:border-blue-400"
                     />
                   </div>
 
                   {/* Horários Disponíveis */}
                   <div className="space-y-2">
                     <Label className="text-white flex items-center gap-2">
-                      <Clock className="h-4 w-4 text-amber-400" />
+                      <Clock className="h-4 w-4 text-blue-400" />
                       Horários Disponíveis
                     </Label>
                     <div className="grid grid-cols-3 gap-2 max-h-48 overflow-y-auto">
@@ -140,8 +140,8 @@ Aguardo confirmação!`;
                           onClick={() => setSelectedTime(time)}
                           className={`text-sm ${
                             selectedTime === time
-                              ? "bg-amber-600 hover:bg-amber-700 text-white border-amber-500"
-                              : "bg-zinc-800 hover:bg-zinc-700 text-white border-amber-500/30 hover:border-amber-400"
+                              ? "bg-blue-600 hover:bg-blue-700 text-white border-blue-500"
+                              : "bg-zinc-800 hover:bg-zinc-700 text-white border-blue-500/30 hover:border-blue-400"
                           }`}
                         >
                           {time}
@@ -154,7 +154,7 @@ Aguardo confirmação!`;
                 {/* Calendário */}
                 <div className="space-y-4">
                   <Label className="text-white flex items-center gap-2">
-                    <CalendarIcon className="h-4 w-4 text-amber-400" />
+                    <CalendarIcon className="h-4 w-4 text-blue-400" />
                     Selecione a Data
                   </Label>
                   <div className="flex justify-center">
@@ -166,24 +166,25 @@ Aguardo confirmação!`;
                         date < new Date() || 
                         date.getDay() === 0 // Desabilita domingos
                       }
-                      className="rounded-lg border border-amber-500/30 bg-zinc-800 text-white pointer-events-auto"
+                      locale={ptBR}
+                      className="rounded-lg border border-blue-500/30 bg-zinc-800 text-white pointer-events-auto"
                       classNames={{
                         months: "flex w-full flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0 flex-1",
                         month: "space-y-4 w-full flex flex-col",
                         caption: "flex justify-center pt-1 relative items-center text-white",
                         caption_label: "text-sm font-medium text-white",
                         nav: "space-x-1 flex items-center",
-                        nav_button: "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-amber-500/30 bg-transparent hover:bg-amber-500/20 hover:text-accent-foreground h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 text-white",
+                        nav_button: "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-blue-500/30 bg-transparent hover:bg-blue-500/20 hover:text-accent-foreground h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 text-white",
                         nav_button_previous: "absolute left-1",
                         nav_button_next: "absolute right-1",
                         table: "w-full border-collapse space-y-1",
                         head_row: "flex",
-                        head_cell: "text-amber-200 rounded-md w-8 font-normal text-[0.8rem]",
+                        head_cell: "text-blue-200 rounded-md w-8 font-normal text-[0.8rem]",
                         row: "flex w-full mt-2",
                         cell: "relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected].day-range-end)]:rounded-r-md",
-                        day: "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-amber-500/20 hover:text-accent-foreground h-8 w-8 p-0 font-normal aria-selected:opacity-100 text-white",
-                        day_selected: "bg-amber-600 text-white hover:bg-amber-700 hover:text-white focus:bg-amber-600 focus:text-white",
-                        day_today: "bg-amber-500/20 text-amber-200",
+                        day: "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-blue-500/20 hover:text-accent-foreground h-8 w-8 p-0 font-normal aria-selected:opacity-100 text-white",
+                        day_selected: "bg-blue-600 text-white hover:bg-blue-700 hover:text-white focus:bg-blue-600 focus:text-white",
+                        day_today: "bg-blue-500/20 text-blue-200",
                         day_outside: "day-outside text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30",
                         day_disabled: "text-muted-foreground opacity-50",
                         day_range_middle: "aria-selected:bg-accent aria-selected:text-accent-foreground",
@@ -196,9 +197,9 @@ Aguardo confirmação!`;
 
               {/* Resumo do Agendamento */}
               {(clientName || phoneNumber || selectedDate || selectedTime) && (
-                <Card className="bg-zinc-800/50 border-amber-500/20">
+                <Card className="bg-zinc-800/50 border-blue-500/20">
                   <CardHeader>
-                    <CardTitle className="text-lg text-amber-400">Resumo do Agendamento</CardTitle>
+                    <CardTitle className="text-lg text-blue-400">Resumo do Agendamento</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-2 text-white">
                     {clientName && <p><strong>Nome:</strong> {clientName}</p>}
@@ -214,14 +215,14 @@ Aguardo confirmação!`;
               {/* Botão de Agendar */}
               <Button 
                 onClick={handleSchedule}
-                className="w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold py-3 text-lg shadow-lg transition-all duration-200 hover:shadow-xl"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 text-lg shadow-lg transition-all duration-200 hover:shadow-xl"
                 size="lg"
               >
                 <MessageSquare className="h-5 w-5 mr-2" />
                 Agendar via WhatsApp
               </Button>
 
-              <p className="text-amber-200 text-sm text-center">
+              <p className="text-blue-200 text-sm text-center">
                 Ao clicar em "Agendar via WhatsApp", você será redirecionado para confirmar seu agendamento.
               </p>
             </CardContent>
