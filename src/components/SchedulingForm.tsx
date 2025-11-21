@@ -11,14 +11,14 @@ import { BusinessHours } from './BusinessHours';
 
 export const SchedulingForm = () => {
   return (
-    <Card className="bg-slate-900/95 backdrop-blur-sm border-slate-700/50 shadow-2xl">
+    <Card className="bg-card backdrop-blur-sm border-border shadow-xl">
       <CardHeader className="text-center pb-4">
-        <CardTitle className="text-xl text-white flex items-center justify-center gap-2">
-          <Calendar className="h-5 w-5 text-blue-400" />
+        <CardTitle className="text-xl text-foreground flex items-center justify-center gap-2">
+          <Calendar className="h-5 w-5 text-primary" />
           Agende seu Horário
         </CardTitle>
-        <p className="text-slate-300 text-sm">
-          Preencha os dados para agendar seu corte
+        <p className="text-muted-foreground text-sm">
+          Preencha os dados para agendar seu atendimento
         </p>
       </CardHeader>
       

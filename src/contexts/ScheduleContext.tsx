@@ -6,6 +6,7 @@ interface ScheduleData {
   phoneNumber: string;
   selectedDate: Date | undefined;
   selectedTime: string;
+  selectedService: string;
 }
 
 interface ScheduleContextType {
@@ -14,6 +15,7 @@ interface ScheduleContextType {
   setPhoneNumber: (phone: string) => void;
   setSelectedDate: (date: Date | undefined) => void;
   setSelectedTime: (time: string) => void;
+  setSelectedService: (service: string) => void;
   getOccupiedTimes: (date: Date) => string[];
 }
 
@@ -34,6 +36,7 @@ export const ScheduleProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     phoneNumber: '',
     selectedDate: undefined,
     selectedTime: '',
+    selectedService: '',
   });
 
   const setClientName = (name: string) => {
@@ -52,6 +55,10 @@ export const ScheduleProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     setScheduleData(prev => ({ ...prev, selectedTime: time }));
   };
 
+  const setSelectedService = (service: string) => {
+    setScheduleData(prev => ({ ...prev, selectedService: service }));
+  };
+
   const getOccupiedTimes = (date: Date): string[] => {
     const dateKey = date.toISOString().split('T')[0];
     return occupiedSlots[dateKey] || [];
@@ -64,6 +71,7 @@ export const ScheduleProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       setPhoneNumber,
       setSelectedDate,
       setSelectedTime,
+      setSelectedService,
       getOccupiedTimes,
     }}>
       {children}
