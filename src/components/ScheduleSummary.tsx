@@ -1,41 +1,51 @@
-
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
 import { useSchedule } from '@/contexts/ScheduleContext';
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
+import { Calendar, Clock, User, Phone, Sparkles } from 'lucide-react';
 
 export const ScheduleSummary = () => {
   const { scheduleData } = useSchedule();
   
-  const hasAnyData = scheduleData.clientName || scheduleData.phoneNumber || 
-                    scheduleData.selectedDate || scheduleData.selectedTime;
-  
-  if (!hasAnyData) return null;
+  if (!scheduleData.selectedDate || !scheduleData.selectedTime || !scheduleData.clientName) {
+    return null;
+  }
+
+  const formattedDate = format(scheduleData.selectedDate, "dd/MM/yyyy", { locale: ptBR });
+  const dayOfWeek = format(scheduleData.selectedDate, "EEEE", { locale: ptBR });
 
   return (
-    <Card className="bg-slate-800/50 border-slate-600">
-      <CardHeader className="pb-3">
-        <CardTitle className="text-base text-slate-300">
-          Resumo do Agendamento
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-2 text-white text-sm">
-        {scheduleData.clientName && (
-          <p><strong>Nome:</strong> {scheduleData.clientName}</p>
+    <div className="bg-muted/50 rounded-lg p-4 space-y-2 border border-border">
+      <h3 className="text-foreground font-semibold text-sm mb-3">Resumo do Agendamento</h3>
+      
+      <div className="space-y-2 text-sm">
+        <div className="flex items-center gap-2 text-foreground">
+          <User className="h-4 w-4 text-primary" />
+          <span>{scheduleData.clientName}</span>
+        </div>
+        
+        <div className="flex items-center gap-2 text-foreground">
+          <Phone className="h-4 w-4 text-primary" />
+          <span>{scheduleData.phoneNumber}</span>
+        </div>
+
+        {scheduleData.selectedService && (
+          <div className="flex items-center gap-2 text-foreground">
+            <Sparkles className="h-4 w-4 text-primary" />
+            <span>{scheduleData.selectedService}</span>
+          </div>
         )}
-        {scheduleData.phoneNumber && (
-          <p><strong>Telefone:</strong> {scheduleData.phoneNumber}</p>
-        )}
-        {scheduleData.selectedDate && (
-          <p>
-            <strong>Data:</strong> {format(scheduleData.selectedDate, "EEEE, dd/MM/yyyy", { locale: ptBR })}
-          </p>
-        )}
-        {scheduleData.selectedTime && (
-          <p><strong>Horário:</strong> {scheduleData.selectedTime}</p>
-        )}
-      </CardContent>
-    </Card>
+        
+        <div className="flex items-center gap-2 text-foreground">
+          <Calendar className="h-4 w-4 text-primary" />
+          <span>{dayOfWeek}, {formattedDate}</span>
+        </div>
+        
+        <div className="flex items-center gap-2 text-foreground">
+          <Clock className="h-4 w-4 text-primary" />
+          <span>{scheduleData.selectedTime}</span>
+        </div>
+      </div>
+    </div>
   );
 };

@@ -13,7 +13,8 @@ export const ScheduleButton = () => {
   const isFormValid = scheduleData.clientName && 
                      scheduleData.phoneNumber && 
                      scheduleData.selectedDate && 
-                     scheduleData.selectedTime;
+                     scheduleData.selectedTime &&
+                     scheduleData.selectedService;
 
   const handleSchedule = () => {
     if (!isFormValid || !scheduleData.selectedDate) {
@@ -30,20 +31,26 @@ export const ScheduleButton = () => {
     const dayOfWeekName = format(scheduleData.selectedDate, "EEEE", { locale: ptBR });
     
     // Criar mensagem para WhatsApp
-    const message = `Olá! Gostaria de confirmar meu agendamento na Eduardoo Barber:
-    
-👤 Nome: ${scheduleData.clientName}
-📅 Data: ${dayOfWeekName}, ${formattedDate}
-⏰ Horário: ${scheduleData.selectedTime}
-📱 Telefone: ${scheduleData.phoneNumber}
+    const message = `✨ Agendamento Confirmado! ✨
 
-Aguardo confirmação!`;
+Olá, ${scheduleData.clientName}!
+Seu horário foi reservado com sucesso na JulianaNailsDesign 💅✨
+
+📆 Data: ${dayOfWeekName}, ${formattedDate}
+⏰ Horário: ${scheduleData.selectedTime}
+💛 Serviço: ${scheduleData.selectedService}
+
+Estamos felizes em te receber!
+Qualquer dúvida ou alteração, é só chamar aqui mesmo. 💬
+
+Obrigada por escolher a JulianaNailsDesign.
+Te esperamos no horário marcado! 💛🤍`;
 
     // Codificar a mensagem para URL
     const encodedMessage = encodeURIComponent(message);
     
-    // Número do WhatsApp da barbearia (substitua pelo número real)
-    const whatsappNumber = "5511999999999";
+    // Número do WhatsApp
+    const whatsappNumber = "5579988689607";
     
     // Abrir WhatsApp
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
@@ -60,14 +67,14 @@ Aguardo confirmação!`;
       <Button 
         onClick={handleSchedule}
         disabled={!isFormValid}
-        className="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 text-base shadow-lg transition-all duration-200 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 text-base shadow-lg transition-all duration-200 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
         size="lg"
       >
         <MessageSquare className="h-5 w-5 mr-2" />
         Agendar via WhatsApp
       </Button>
 
-      <p className="text-slate-300 text-xs text-center">
+      <p className="text-muted-foreground text-xs text-center">
         Ao clicar em "Agendar via WhatsApp", você será redirecionado para confirmar seu agendamento.
       </p>
     </div>
